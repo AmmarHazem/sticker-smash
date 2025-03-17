@@ -1,23 +1,25 @@
+import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+
+const PlaceholderImage = require("@/assets/images/background-image.png");
 
 export default function Index() {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      <Text style={styles.text}>Home Screen</Text>
-      <Link style={styles.aboutLink} href={"/about"}>
-        About
-      </Link>
-      {/* <Link style={styles.aboutLink} href={"/abc"}>
-        Not Found
-      </Link> */}
+      <Image source={PlaceholderImage} style={styles.image} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  image: {
+    width: 320,
+    height: 440,
+    borderRadius: 18,
+  },
   container: {
     flex: 1,
     alignItems: "center",
