@@ -1,24 +1,30 @@
-import { Image } from "expo-image";
-import { Link } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import Button from "@/components/Button";
+import ImageViewer from "@/components/ImageViewer";
+import { StyleSheet, View } from "react-native";
 
 const PlaceholderImage = require("@/assets/images/background-image.png");
 
 export default function Index() {
   return (
     <View style={styles.container}>
-      <StatusBar style="light" />
-      <Image source={PlaceholderImage} style={styles.image} />
+      <View style={styles.imageContainer}>
+        <ImageViewer src={PlaceholderImage} />
+      </View>
+      <View style={styles.footerContainer}>
+        <Button label="Choose a Photo" theme="primary" />
+        <Button label="Use This Photo" />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  image: {
-    width: 320,
-    height: 440,
-    borderRadius: 18,
+  footerContainer: {
+    flex: 1,
+    alignItems: "center",
+  },
+  imageContainer: {
+    flex: 3,
   },
   container: {
     flex: 1,
