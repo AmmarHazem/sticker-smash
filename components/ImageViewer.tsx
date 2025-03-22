@@ -2,8 +2,8 @@ import { Image, ImageSource } from "expo-image";
 import { FC } from "react";
 import { StyleSheet } from "react-native";
 
-const ImageViewer: FC<ImageViewerProps> = ({ src }) => {
-  return <Image source={src} style={styles.image} />;
+const ImageViewer: FC<ImageViewerProps> = ({ src, selectedImage }) => {
+  return <Image source={selectedImage ? { uri: selectedImage } : src} style={styles.image} />;
 };
 
 const styles = StyleSheet.create({
@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
 });
 
 interface ImageViewerProps {
+  selectedImage?: string;
   src: ImageSource;
 }
 
