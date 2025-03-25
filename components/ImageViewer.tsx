@@ -9,7 +9,8 @@ const ImageViewer: FC<ImageViewerProps> = ({ src, selectedImage }) => {
 const styles = StyleSheet.create({
   image: {
     width: 320,
-    height: 440,
+    height: "100%",
+    objectFit: "cover",
     borderRadius: 18,
   },
 });
