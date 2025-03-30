@@ -47,7 +47,7 @@ export default function Index() {
     <GestureHandlerRootView style={styles.container}>
       <View style={styles.imageContainer}>
         <ImageViewer src={PlaceholderImage} selectedImage={selectedImage} />
-        {pickedEmoji && <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />}
+        {pickedEmoji && <EmojiSticker imageSize={80} stickerSource={pickedEmoji} />}
       </View>
       {showAppOptions ? (
         <View style={styles.optionsRow}>
