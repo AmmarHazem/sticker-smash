@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import Button from "@/components/Button";
 import ImageViewer from "@/components/ImageViewer";
@@ -20,6 +20,7 @@ export default function Index() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [pickedEmoji, setPickedEmoji] = useState<ImageSource | undefined>(undefined);
   const [status, requestPermission] = MediaLibrary.usePermissions();
+  const imageRef = useRef<View>(null);
 
   useEffect(() => {
     if (status === null) {
@@ -53,7 +54,7 @@ export default function Index() {
 
   return (
     <GestureHandlerRootView style={styles.container}>
-      <View style={styles.imageContainer}>
+      <View ref={imageRef} style={styles.imageContainer} collapsable={false}>
         <ImageViewer src={PlaceholderImage} selectedImage={selectedImage} />
         {pickedEmoji && <EmojiSticker imageSize={100} stickerSource={pickedEmoji} />}
       </View>
