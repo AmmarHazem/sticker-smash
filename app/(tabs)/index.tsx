@@ -1,17 +1,18 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { captureRef } from "react-native-view-shot";
+import { ImageSource } from "expo-image";
 import Button from "@/components/Button";
 import ImageViewer from "@/components/ImageViewer";
 import IconButton from "@/components/IconButton";
 import CircleButton from "@/components/CircleButton";
-import * as ImagePicker from "expo-image-picker";
 import EmojiPicker from "@/components/EmojiPicker";
-import { ImageSource } from "expo-image";
 import EmojiList from "@/components/EmojiList";
 import EmojiSticker from "@/components/EmojiSticker";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import domtoimage from "dom-to-image";
+import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
-import { captureRef } from "react-native-view-shot";
 
 const PlaceholderImage = require("@/assets/images/background-image.png");
 
@@ -44,11 +45,24 @@ export default function Index() {
   }, []);
 
   const onSaveImageAsync = useCallback(async () => {
+    if (!imageRef.current) return;
     try {
-      const localUri = await captureRef(imageRef, { height: 440, quality: 1 });
-      await MediaLibrary.saveToLibraryAsync(localUri);
-      if (localUri) {
-        alert("Saved!");
+      if (Platform.OS === "web") {
+        const dataUrl = await domtoimage.toJpeg(imageRef.current as any, {
+          quality: 0.95,
+          width: 320,
+          height: 440,
+        });
+        let link = document.createElement("a");
+        link.download = "sticker-smash.jpeg";
+        link.href = dataUrl;
+        link.click();
+      } else {
+        const localUri = await captureRef(imageRef, { height: 440, quality: 1 });
+        await MediaLibrary.saveToLibraryAsync(localUri);
+        if (localUri) {
+          alert("Saved!");
+        }
       }
     } catch (e) {
       console.log("--- onSaveImageAsync error", e);
